@@ -1,5 +1,5 @@
 {
-  "name": "eventsignal",
+  "name": "@haxiomic/event-signal",
   "version": "1.0.0",
   "author": "haxiomic (George Corney)",
   "license": "MIT",
@@ -23,7 +23,7 @@
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "http://github.com/haxiomic/event-signal"
+    "url": "git+ssh://git@github.com/haxiomic/event-signal.git"
   },
   "main": "dist/EventSignal.js",
   "types": "dist/EventSignal.d.ts",
