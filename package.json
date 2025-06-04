@@ -1,0 +1,40 @@
+{
+  "name": "@haxiomic/event-signal",
+  "version": "1.0.0",
+  "author": "haxiomic (George Corney)",
+  "license": "MIT",
+  "description": "A single event emitter with priority support for TypeScript",
+  "keywords": [
+    "signal",
+    "event-signal",
+    "eventemitter",
+    "events",
+    "priority",
+    "typescript",
+    "event-dispatcher",
+    "observer-pattern",
+    "pub-sub",
+    "event-handling",
+    "propagation",
+    "listener-priority",
+    "dom-events",
+    "event-system"
+  ],
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/haxiomic/event-signal"
+  },
+  "main": "dist/EventSignal.js",
+  "types": "dist/EventSignal.d.ts",
+  "scripts": {
+    "prepack": "rm -rf ./dist && npm run build",
+    "typecheck": "tsc --noEmit",
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
