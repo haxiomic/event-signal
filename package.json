@@ -20,17 +20,28 @@
     "dom-events",
     "event-system"
   ],
-  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/haxiomic/event-signal.git"
   },
-  "main": "dist/EventSignal.js",
-  "types": "dist/EventSignal.d.ts",
+  "type": "module",
+  "main": "dist/cjs/EventSignal.js",
+  "module": "dist/esm/EventSignal.js",
+  "types": "dist/types/EventSignal.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/cjs/EventSignal.js",
+      "import": "./dist/esm/EventSignal.js",
+      "types": "./dist/types/EventSignal.d.ts"
+    }
+  },
   "scripts": {
-    "prepack": "rm -rf ./dist && npm run build",
     "typecheck": "tsc --noEmit",
-    "build": "tsc",
+    "prepack": "npm run clean && npm run build",
+    "build": "npm run clean && npm run build-esm && npm run build-cjs",
+    "build-esm": "tsc --project tsconfig.json && echo '{\"type\": \"module\"}' > dist/esm/package.json",
+    "build-cjs": "tsc --project tsconfig.cjs.json && echo '{\"type\": \"commonjs\"}' > dist/cjs/package.json",
+    "clean": "rm -rf dist",
     "dev": "tsc --watch"
   },
   "dependencies": {},
