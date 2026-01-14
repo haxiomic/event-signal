@@ -1,6 +1,6 @@
 {
   "name": "@haxiomic/event-signal",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "author": "haxiomic (George Corney)",
   "license": "MIT",
   "description": "A single event emitter with priority support for TypeScript",
