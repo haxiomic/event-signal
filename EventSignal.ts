@@ -7,11 +7,14 @@ export class EventSignal<Payload = undefined, E = EventSignal.Emitted<Payload>> 
         listener: (event: E) => void
     }>()
 
-    public addListener(listener: (event: E) => void, priority: number = 0) {
-        let eventObj = {
+    public addListener(listener: (event: E) => void, priority: number = 0): EventSignalListener {
+        const eventObj = {
             priority,
             listener,
             remove: () => this.removeListener(listener),
+            removeOnSignal: (signal: EventSignal<any, any>) => {
+                return signal.once(() => this.removeListener(listener));
+            }
         }
         if (listener !== null) {
             this.listeners.push(eventObj)
@@ -105,6 +108,15 @@ export class EventSignal<Payload = undefined, E = EventSignal.Emitted<Payload>> 
 function stopPropagationOverride(this: Event) {
     (this as any).propagationStopped = true;
     (this as any)._stopPropagation();
+}
+
+export type EventSignalListener = {
+    /** Priority of the listener, higher numbers indicate higher priority, this is allowed to change at runtime */
+    priority: number
+    listener: (event: any) => void
+    remove: () => void
+    /** Removes the listener when the provided signal is dispatched */
+    removeOnSignal: (signal: EventSignal<any, any>) => void
 }
 
 export namespace EventSignal {
