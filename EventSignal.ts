@@ -7,7 +7,7 @@ export class EventSignal<Payload = undefined, E = EventSignal.Emitted<Payload>> 
         listener: (event: E) => void
     }>()
 
-    public addListener(listener: (event: E) => void, priority: number = 0): EventSignalListener {
+    public addListener(listener: (event: E) => void, priority: number = 0): EventSignal.Listener {
         const eventObj = {
             priority,
             listener,
@@ -110,15 +110,6 @@ function stopPropagationOverride(this: Event) {
     (this as any)._stopPropagation();
 }
 
-export type EventSignalListener = {
-    /** Priority of the listener, higher numbers indicate higher priority, this is allowed to change at runtime */
-    priority: number
-    listener: (event: any) => void
-    remove: () => void
-    /** Removes the listener when the provided signal is dispatched */
-    removeOnSignal: (signal: EventSignal<any, any>) => void
-}
-
 export namespace EventSignal {
     // we patch events to support `propagationStopped`
     export type Emitted<T> = T extends Event ?
@@ -128,6 +119,13 @@ export namespace EventSignal {
         } :
         T;
 
-    export type Listener = ReturnType<EventSignal['addListener']>
+    export type Listener = {
+        /** Priority of the listener, higher numbers indicate higher priority, this is allowed to change at runtime */
+        priority: number
+        listener: (event: any) => void
+        remove: () => void
+        /** Removes the listener when the provided signal is dispatched */
+        removeOnSignal: (signal: EventSignal<any, any>) => void
+    }
 }
 
